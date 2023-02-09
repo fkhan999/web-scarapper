@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "5346c05a-e16f-4e8d-abab-bb9321470a4c",
+		"name": "youtube-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"username\":\"user2\",\r\n    \"password\":\"feb2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}:{{port}}/api/createUser/",
+					"host": [
+						"{{base-url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"createUser",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JWTtoken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"access_token\", jsonData['access']);\r",
+							"pm.environment.set(\"refresh_token\", jsonData['refresh']);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"username\":\"user1\",\r\n    \"password\":\"feb20231\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}:{{port}}/api/token/",
+					"host": [
+						"{{base-url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JWTtoken refresh",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"access_token\", jsonData['access']);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"refresh\":\"{{refresh_token}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}:{{port}}/api/token/refresh/",
+					"host": [
+						"{{base-url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"token",
+						"refresh",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}:{{port}}/api/deleteUser/",
+					"host": [
+						"{{base-url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"deleteUser",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"username\":\"user1\",\r\n    \"new_password\":\"feb2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}:{{port}}/api/updateUser/",
+					"host": [
+						"{{base-url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"updateUser",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}:{{port}}/api/youtube/get/",
+					"host": [
+						"{{baseurl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"youtube",
+						"get",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request search",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"christian\",\r\n    \"description\":\"musickk\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}:{{port}}/api/youtube/search/?page=1&page-size=10",
+					"host": [
+						"{{base-url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"youtube",
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "page-size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
